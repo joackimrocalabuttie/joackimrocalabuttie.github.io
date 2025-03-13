@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Joackim</title>
+    <style>
+       body {
+            background: linear-gradient(135deg, black, #1a1a1a);
+            color: white;
+            padding-top: 120px;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            scroll-behavior: smooth;
+        }
+
+        .bandeau {
+            background-color: purple;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 1.8em;
+            font-weight: bold;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+			cursor: pointer;
+        }
+
+        .navigation a:hover {
+            background-color: white;
+            color: violet;
+        }
+
+        .section {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            padding: 100px 20px;
+            text-align: center;
+            background: linear-gradient(160deg, rgba(0, 0, 0, 0.9), rgba(40, 40, 40, 0.8));
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+
+        .visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .presentation-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+		
+		
+
+        .presentation-text {
+            flex: 1;
+            font-size: 2.6em;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .nom {
+            color: purple;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 400px;
+            object-fit: cover;
+            border: 4px solid white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .projet-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 30px;
+            justify-items: center;
+            margin-top: 40px;
+        }
+
+        .projet-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            justify-content: center; /* Réduit l'espace entre le titre et l'image */
+            height: 350px; /* Ajusté pour plus de compacité */
+        }
+
+        .projet-item h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;  /* Réduit l'espacement entre le titre et l'image */
+            color: white;
+            word-wrap: break-word;
+            max-width: 100%;
+            text-align: center;
+        }
+
+        .projet-box {
+            width: 300px;
+            height: 250px; /* Augmenté pour plus d'épaisseur */
+            background-color: transparent;
+            border: 6px solid white; /* Augmenté pour plus d'épaisseur */
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .projet-box a {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .projet-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            transition: opacity 0.3s ease;
+        }
+
+        .projet-box img:hover {
+            opacity: 0.8;
+        }
+		
+		@keyframes slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+	}
+
+	@keyframes slide-in-right {
+		from {
+			opacity: 0;
+			transform: translateX(100%);
+		}
+		to {
+			opacity: 1;
+			transform: translateX(0);
+		}
+	}
+
+	.hidden {
+		opacity: 0;
+	}
+
+	.animate-left {
+		animation: slide-in-left 0.8s ease-out forwards;
+	}
+
+	.animate-right {
+		animation: slide-in-right 0.8s ease-out forwards;
+	}
+	
+.contact-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.contact-box {
+    display: flex;
+    align-items: center;
+    background-color: #333; /* Fond gris foncé */
+    color: white; /* Couleur du texte blanche */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+    width: 100%; /* Prend toute la largeur de l'écran */
+    max-width: 1200px; /* Limite la largeur à 1200px pour ne pas être trop large */
+    margin: auto;
+}
+
+.contact-icons {
+    display: grid;  /* Utilisation de la grille pour l'alignement */
+    grid-template-columns: repeat(2, 1fr);  /* 2 icônes par ligne */
+    gap: 20px;  /* Espace entre les icônes */
+    margin-right: 20px;
+}
+
+.contact-icons img {
+    width: 50px;  /* Augmenter la taille des icônes */
+    height: 50px;  /* Augmenter la taille des icônes */
+    margin-bottom: 10px;
+    border: 2px solid white;  /* Bordure blanche autour des icônes */
+    padding: 10px;  /* Un peu plus de padding pour un effet plus grand */
+    border-radius: 0;  /* Retirer le border-radius pour avoir un effet carré */
+    transition: transform 0.3s ease-in-out;  /* Effet au survol */
+}
+
+.contact-icons img:hover {
+    transform: scale(1.1);  /* Agrandir l'icône légèrement au survol */
+}
+
+
+.contact-info p, .contact-info a {
+    margin: 5px 0;
+    font-size: 1.1em;
+    text-decoration: none;
+    color: white;
+}
+
+.contact-info a:hover {
+    color: purple;
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="bandeau">
+        <nav class="navigation">
+            <a href="#presentation" class="scroll-link">Présentation</a>
+            <a href="#apropos" class="scroll-link">À propos de moi</a>
+            <a href="#projets" class="scroll-link">Projets & Compétences</a>
+			<a href="#bilanperso" class="scroll-link">Bilan personnel</a>
+            <a href="#contact" class="scroll-link">Contact</a>
+        </nav>
+    </div>
+
+    <div id="presentation" class="section visible">
+         <div style="
+        background-color: purple; 
+        border: 4px solid white; 
+        padding: 20px; 
+        text-align: center; 
+        max-width: 600px; 
+        margin: auto; 
+        border-radius: 10px;
+    ">
+        <h2 style="font-size: 2.5em; color: white; margin: 0;">Présentation</h2>
+    </div>   
+		<div class="presentation-container">
+            <div class="presentation-text">
+                Bienvenue sur mon portfolio !
+                <p>Je suis <span class="nom">ROCA-LABUTTIE Joackim</span>, étudiant en BUT1 Sciences des Données à l'IUT Niort-Poitiers-Châtellerault.</p>
+            </div>
+            <img src="image tete.jpg" alt="Photo de Joackim" class="profile-image">
+        </div>
+    </div>
+
+    <div id="apropos" class="section">
+        <h2>À propos de moi</h2>
+        <p>Description personnelle et parcours...</p>
+    </div>
+
+
+
+    <div id="projets" class="section">
+         <div style="
+        background-color: purple; 
+        border: 4px solid white; 
+        padding: 20px; 
+        text-align: center; 
+        max-width: 600px; 
+        margin: auto; 
+        border-radius: 10px;
+    ">
+        <h2 style="font-size: 2.5em; color: white; margin: 0;">Projets & Compétences</h2>
+    </div>   
+        <div class="projet-container">
+            <!-- 12 projets (3 colonnes x 4 lignes) -->
+            <div class="projet-item">
+                <h3>Ecriture et lecture de fichiers de données</h3>
+                <div class="projet-box">
+                    <a href="projet1.html">
+                        <img src="json.webp" alt="Projet 1">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Création d’un reporting</h3>
+                <div class="projet-box">
+                    <a href="projet2.html">
+                        <img src="simunotes.jpg" alt="Projet 2">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Préparation et synthèse d'un tableau de données en vue d'une analyse exploratoire simple</h3>
+                <div class="projet-box">
+                    <a href="projet3.html">
+                        <img src="sae stats ali.png" alt="Projet 3">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Apprendre en situation la production de données en entreprise</h3>
+                <div class="projet-box">
+                    <a href="projet4.html">
+                        <img src="sae ali nfp.jpg" alt="Projet 4">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Présentation en anglais d'un territoire économique et culturel</h3>
+                <div class="projet-box">
+                    <a href="projet5.html">
+                        <img src="sae JO.png" alt="Projet 5">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Mise en œuvre d'une enquête</h3>
+                <div class="projet-box">
+                    <a href="projet6.html">
+                        <img src="sae enquete.jpg" alt="Projet 6">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Conception et implémentation d'une base de données</h3>
+                <div class="projet-box">
+                    <a href="projet7.html">
+                        <img src="image7.jpg" alt="Projet 7">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Estimation par échantillonnage</h3>
+                <div class="projet-box">
+                    <a href="projet8.html">
+                        <img src="image8.jpg" alt="Projet 8">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Régression sur des données réelles</h3>
+                <div class="projet-box">
+                    <a href="projet9.html">
+                        <img src="image9.jpg" alt="Projet 9">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Dataviz</h3>
+                <div class="projet-box">
+                    <a href="projet10.html">
+                        <img src="image10.jpg" alt="Projet 10">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Construction et présentation d’indicateurs de performance</h3>
+                <div class="projet-box">
+                    <a href="projet11.html">
+                        <img src="image11.jpg" alt="Projet 11">
+                    </a>
+                </div>
+            </div>
+            <div class="projet-item">
+                <h3>Analyse de données, reporting et datavisualisation</h3>
+                <div class="projet-box">
+                    <a href="projet12.html">
+                        <img src="image12.jpg" alt="Projet 12">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="bilanperso" class="section">
+        <h2>Bilan personnel</h2>
+    </div>
+	
+	   
+	
+		<div id="contact" class="section">
+    <div style="
+        background-color: purple; 
+        border: 4px solid white; 
+        padding: 20px; 
+        text-align: center; 
+        max-width: 600px; 
+        margin: auto;
+        border-radius: 10px;
+    ">
+        <h2 style="font-size: 2.5em; color: white; margin: 0;">Contact</h2>
+    </div>   
+    <div class="contact-container">
+        <div class="contact-box">
+            <div class="contact-icons">
+                <img src="phone-icon.png" alt="Téléphone">
+                <img src="mail-icon.png" alt="Email">
+                <img src="instagram-icon.png" alt="Instagram">
+                <img src="linkedin-icon.png" alt="LinkedIn">
+            </div>
+            <div class="contact-info">
+                <p>+33 6 10 84 78 15</p>
+                <p>joackim.roca.labuttie@etu.univ-poitiers.fr</p>
+                <p>@joackimrcl</p>
+                <p><a href="https://www.linkedin.com/in/joackim-roca-labuttie-0728912b8" target="_blank">Mon LinkedIn</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+	
+
+    <script>
+        function revealSections() {
+            let sections = document.querySelectorAll('.section');
+            let windowHeight = window.innerHeight;
+            sections.forEach(section => {
+                let sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < windowHeight - 100) {
+                    section.classList.add('visible');
+                }
+            });
+        }
+
+        document.addEventListener('scroll', revealSections);
+        document.addEventListener('DOMContentLoaded', () => {
+            revealSections();
+            setTimeout(revealSections, 500);
+        });
+    
+    document.querySelectorAll('.scroll-link').forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault(); 
+            const targetId = this.getAttribute('href'); 
+            const targetSection = document.querySelector(targetId); 
+			const offset = 100;
+            if (targetSection) {
+                const targetPosition = targetSection.offsetTop - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+				
+				const elements = targetSection.querySelectorAll('.animate-item');
+            elements.forEach((el, index) => {
+                el.classList.remove('hidden'); // Enlève la classe cachée
+                el.classList.add(index % 2 === 0 ? 'animate-left' : 'animate-right'); // Alterne entre gauche et droite
+            });
+        }
+    });
+});
+	
+</script>
+
+</body>
+</html>; 
+
+
+
+
+
+
+
+
+
+
+
+
+
