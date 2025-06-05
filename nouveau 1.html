@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        header {
+            text-align: center;
+            padding: 50px;
+            font-size: 3em;
+            color: #a855f7;
+            font-weight: bold;
+            animation: fadeInDown 1s ease-in-out;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        nav a {
+            color: #a855f7;
+            text-decoration: none;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            transition: all 0.3s;
+            position: relative;
+        }
+        nav a:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+        section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.5s, transform 0.5s;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
+        section.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .content {
+            max-width: 800px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s;
+        }
+        .content:hover {
+            transform: translateY(-10px);
+        }
+        .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: #a855f7;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <header>Mon Portfolio</header>
+    <nav>
+        <a href="#" onclick="showSection('presentation')">Présentation</a>
+        <a href="#" onclick="showSection('about')">À propos de moi</a>
+        <a href="#" onclick="showSection('projects')">Projets & Compétences</a>
+        <a href="#" onclick="showSection('bilan')">Bilan Personnel</a>
+        <a href="#" onclick="showSection('contact')">Contact</a>
+    </nav>
+    
+    <section id="presentation" class="active">
+        <div class="content">
+            <i class="icon fas fa-user"></i>
+            <h2>Présentation</h2>
+            <p>Bienvenue sur mon portfolio, découvrez mes projets et compétences.</p>
+        </div>
+    </section>
+    <section id="about">
+        <div class="content">
+            <i class="icon fas fa-info-circle"></i>
+            <h2>À propos de moi</h2>
+            <p>Passionné par les statistiques et l'analyse de données.</p>
+        </div>
+    </section>
+    <section id="projects">
+        <div class="content">
+            <i class="icon fas fa-laptop-code"></i>
+            <h2>Projets & Compétences</h2>
+            <p>Découvrez mes réalisations et mes compétences techniques.</p>
+        </div>
+    </section>
+    <section id="bilan">
+        <div class="content">
+            <i class="icon fas fa-chart-line"></i>
+            <h2>Bilan Personnel</h2>
+            <p>Mon évolution et mes objectifs professionnels.</p>
+        </div>
+    </section>
+    <section id="contact">
+        <div class="content">
+            <i class="icon fas fa-envelope"></i>
+            <h2>Contact</h2>
+            <p>N'hésitez pas à me contacter pour toute collaboration.</p>
+        </div>
+    </section>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
